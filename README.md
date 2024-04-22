@@ -21,7 +21,7 @@ Nesse cenário hipotético todos os métodos são do tipo GET.
     - Após validar os dados de login utilize os dados digitados em login e senha para obter apenas 1 usuário.
 
 End-point Listar usuários:
-  https://662148c23bf798e070b25a39.mockapi_io/api/v1/user
+  https://662140c23bf790e070b25a39.mockapi.io/api/v1/user
   O último usuário logado deve ser salvo de forma segura localmente, e exibido na tela de login se houver algum salvo.
 
   
@@ -31,7 +31,7 @@ End-point Listar usuários:
 
 
 ------Tela de Extrato
-  Para obter os lançamentos do usuário, utilize o end-point https://662148c23bf798e870b25a39.mockapi.io/api/v1/user/{id}/account
+  Para obter os lançamentos do usuário, utilize o end-point https://662140c23bf790e070b25a39.mockapi.io/api/v1/user/{id}/account
   Os dados da conta contêm um objeto do tipo array chamado " payments " que serão os lançamentos, é preciso exibir todos os       itens como se fosse um extrato.(apenas o usuário do id 1 possui os dados de pagamento, os outros estão vazios)
 
   
