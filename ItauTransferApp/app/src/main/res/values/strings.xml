@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ItauTransferApp</string>
+    <string name="itau_tranfer">Itaú Transfer</string>
+    <string name="welcome">Bem-vindo ao Itaú Transfer!</string>
+    <string name="welcome_message">Faça transferências e pagamentos com facilidade, segurança garantida em cada transação.</string>
+    <string name="start">INICIAR</string>
 </resources>
