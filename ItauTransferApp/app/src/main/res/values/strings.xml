@@ -4,4 +4,16 @@
     <string name="welcome">Bem-vindo ao Itaú Transfer!</string>
     <string name="welcome_message">Faça transferências e pagamentos com facilidade, segurança garantida em cada transação.</string>
     <string name="start">INICIAR</string>
+    <string name="login">Login</string>
+    <string name="next">Próximo</string>
+    <string name="confirm_transfer">Confirmar Transferência</string>
+    <string name="send_bank_transfer">Enviar Comprovante</string>
+    <string name="without_account">Não tem uma conta?</string>
+    <string name="register"> Cadastre-se</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="account_balance">saldo na conta</string>
+    <string name="bank_statement">Ver Extrato</string>
+    <string name="new_transfer">Nova \nTransferência</string>
+
 </resources>

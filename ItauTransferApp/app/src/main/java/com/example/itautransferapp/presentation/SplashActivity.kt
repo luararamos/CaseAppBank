@@ -1,4 +1,4 @@
-package com.example.itautransferapp
+package com.example.itautransferapp.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.example.itautransferapp.R
 import com.example.itautransferapp.ui.theme.CustomRobotoCondensed
 import com.example.itautransferapp.ui.theme.FONT_16
 import com.example.itautransferapp.ui.theme.MAX_INPUT_HEIGHT
@@ -67,6 +68,6 @@ class SplashActivity : ComponentActivity() {
         Handler().postDelayed({
             startActivity(Intent(this, WelcomeActivity::class.java))
             finish()
-        }, 12000)
+        }, 1200)
     }
 }

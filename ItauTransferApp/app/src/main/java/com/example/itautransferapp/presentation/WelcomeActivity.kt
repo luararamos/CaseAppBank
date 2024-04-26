@@ -1,4 +1,4 @@
-package com.example.itautransferapp
+package com.example.itautransferapp.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +19,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import com.example.itautransferapp.R
+import com.example.itautransferapp.presentation.components.ButtonAction
 import com.example.itautransferapp.ui.theme.CustomRobotoCondensed
 import com.example.itautransferapp.ui.theme.FONT_24
 import com.example.itautransferapp.ui.theme.MAX_INPUT_HEIGHT
@@ -71,10 +73,10 @@ class WelcomeActivity : ComponentActivity() {
                     modifier = Modifier.padding(MEDIUM_PADDING),
                     textAlign = TextAlign.Center ,
                     text = stringResource(id = R.string.welcome_message),
-                    color = colorResource(id = R.color.colorTextSecondary)
+                    color = colorResource(id = R.color.colorTextTertiary)
                 )
-                CustomOrangeButton(stringResource(id = R.string.start), true) {
-                    startActivity(Intent(this@WelcomeActivity, MainActivity::class.java))
+                ButtonAction(stringResource(id = R.string.start), true) {
+                    startActivity(Intent(this@WelcomeActivity, LoginActivity::class.java))
                     finish()
                 }
 

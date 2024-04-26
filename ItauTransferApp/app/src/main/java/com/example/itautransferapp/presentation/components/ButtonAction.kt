@@ -1,11 +1,9 @@
-package com.example.itautransferapp
+package com.example.itautransferapp.presentation.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -19,7 +17,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.example.itautransferapp.R
 import com.example.itautransferapp.ui.theme.CORNER_RADIUS_20
 import com.example.itautransferapp.ui.theme.LARGE_PADDING
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
@@ -27,9 +25,9 @@ import com.example.itautransferapp.ui.theme.SMALL_PADDING
 import com.example.itautransferapp.ui.theme.SUPER_PADDING
 
 @Composable
-fun CustomOrangeButton(
+fun ButtonAction(
     text: String,
-    arrow: Boolean,
+    arrow: Boolean? = null,
     onClick: () -> Unit
 ) {
     Button(
@@ -51,13 +49,16 @@ fun CustomOrangeButton(
                 text = text,
                 color = Color.White
             )
-            if (arrow) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_arrow_right),
-                    contentDescription = null,
-                    tint = Color.White
-                )
+            arrow?.let {
+                if (arrow) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_arrow_right),
+                        contentDescription = null,
+                        tint = Color.White
+                    )
+                }
             }
+
 
         }
     }
@@ -66,9 +67,9 @@ fun CustomOrangeButton(
 @Preview(showBackground = true)
 @Composable
 fun PreviewCustomOrangeButton() {
-    CustomOrangeButton(
+    ButtonAction(
         text = "Meu Botão",
         arrow = false,
-        onClick = {  },
+        onClick = { },
     )
 }

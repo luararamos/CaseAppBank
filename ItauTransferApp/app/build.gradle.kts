@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kapt)
+
 }
 
 android {
@@ -64,6 +66,29 @@ dependencies {
     implementation ("androidx.compose.material:material:1.3.1")
     implementation ("androidx.compose.ui:ui-tooling-preview:1.3.1")
     androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.3.1")
+    implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+
+    // Navigation Compose
+    implementation("androidx.navigation:navigation-compose:2.8.0-alpha01")
+    implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation ("com.google.accompanist:accompanist-pager:0.12.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    // hilt
+    // Navigation compose
+    implementation ("androidx.navigation:navigation-compose:2.5.3")
+    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    // Hilt
+    implementation ("com.google.dagger:hilt-android:2.44")
+    kapt ("com.google.dagger:hilt-compiler:2.44")
+
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("androidx.hilt:hilt-work:1.0.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+
+    implementation ("androidx.compose.runtime:runtime-livedata:1.0.0-beta01")
 
 
 }

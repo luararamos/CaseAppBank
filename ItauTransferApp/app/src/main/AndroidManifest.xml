@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ItauTransferApp"
         tools:targetApi="31">
         <activity
-            android:name=".SplashActivity"
+            android:name=".presentation.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,10 +22,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".presentation.WelcomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.LoginActivity"
             android:exported="true" />
     </application>
 
