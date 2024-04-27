@@ -1,5 +1,6 @@
 package com.example.itautransferapp.presentation.screens
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,14 +9,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.itautransferapp.R
+import com.example.itautransferapp.presentation.BankStatementActivity
+import com.example.itautransferapp.presentation.NewTransferActivity
 import com.example.itautransferapp.presentation.components.CardBank
 import com.example.itautransferapp.presentation.components.CardNewTransfer
 import com.example.itautransferapp.presentation.components.BankAccountToolbar
@@ -28,6 +34,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .background(colorResource(id = R.color.colorBackground))
@@ -48,9 +55,16 @@ fun HomeScreen(
         ) {
             Column {
                 Spacer(modifier = Modifier.height(16.dp))
-                CardBank(name = "Carlos Daniel", accountBalance = "3.450,00")
+                CardBank(name = "Carlos Daniel", accountBalance = "3.450,00"){
+                    val intent = Intent(context, BankStatementActivity::class.java)
+                    context.startActivity(intent)
+                }
                 Spacer(modifier = Modifier.height(32.dp))
-                CardNewTransfer()
+                CardNewTransfer(){
+                    val intent = Intent(context, NewTransferActivity::class.java)
+                    context.startActivity(intent)
+                }
+
             }
         }
     }

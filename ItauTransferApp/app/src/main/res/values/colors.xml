@@ -4,9 +4,11 @@
     <color name="colorPrimaryDark">#ff5500</color>
     <color name="colorAccent">#FF3700B3</color>
     <color name="colorBackground">#084585</color>
+    <color name="colorBackgroundWhite">#ffffff</color>
     <color name="colorTextPrimary">#ffffff</color>
     <color name="colorTextSecondary">#000000</color>
     <color name="colorTextTertiary">#BABABA</color>
-    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorTextQuaternary">#3629B7</color>
+    <color name="colorSuccess">#118732</color>
     <color name="colorError">#F44336</color>
 </resources>

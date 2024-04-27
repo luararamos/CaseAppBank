@@ -1,6 +1,7 @@
 package com.example.itautransferapp.presentation.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,12 +34,14 @@ import com.example.itautransferapp.ui.theme.WIDTH_CARD
 @Composable
 fun CardBank(
     name: String,
-    accountBalance: String
+    accountBalance: String,
+    onClick: () -> Unit
 ) {
 
     Box(modifier = Modifier
         .size(width = WIDTH_CARD, height = HEIGHT_CARD)
         .clip(RoundedCornerShape(CORNER_RADIUS_16))
+        .clickable(onClick = onClick)
     ) {
         Image(
             painter = painterResource(id = R.drawable.img_card),
@@ -79,7 +82,7 @@ fun CardBank(
             )
             Row {
                 Text(
-                    text = stringResource(id = R.string.bank_statement),
+                    text = stringResource(id = R.string.see_bank_statement),
                     style = TextStyle(
                         fontSize = FONT_16
                     ),

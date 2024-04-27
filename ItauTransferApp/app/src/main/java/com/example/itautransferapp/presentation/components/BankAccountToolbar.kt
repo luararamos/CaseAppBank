@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.itautransferapp.R
 import com.example.itautransferapp.ui.theme.CORNER_RADIUS_32
+import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
 import com.example.itautransferapp.ui.theme.MIN_INPUT_HEIGHT
 import com.example.itautransferapp.ui.theme.MIN_INPUT_WIDTH
 
@@ -40,7 +41,7 @@ fun BankAccountToolbar(
             .padding(16.dp, 32.dp, 16.dp, 32.dp)
     ) {
         val (
-            img,
+            imgPhoto,
             txtName,
             txtBankCont,
             icNotification,
@@ -51,7 +52,7 @@ fun BankAccountToolbar(
             modifier = Modifier
                 .size(width = MIN_INPUT_WIDTH, height = MIN_INPUT_HEIGHT)
                 .clip(RoundedCornerShape(CORNER_RADIUS_32))
-                .constrainAs(ref = img) {
+                .constrainAs(ref = imgPhoto) {
                     top.linkTo(parent.top, 16.dp)
                     start.linkTo(parent.start, 16.dp)
                 }
@@ -74,7 +75,7 @@ fun BankAccountToolbar(
             modifier = Modifier
                 .constrainAs(ref = txtName) {
                     top.linkTo(parent.top, 16.dp)
-                    start.linkTo(img.end, 16.dp)
+                    start.linkTo(imgPhoto.end, 16.dp)
                 }
         )
 
@@ -86,7 +87,7 @@ fun BankAccountToolbar(
             modifier = Modifier
                 .constrainAs(ref = txtBankCont) {
                     top.linkTo(txtName.bottom, 16.dp)
-                    start.linkTo(img.end, 16.dp)
+                    start.linkTo(imgPhoto.end, 16.dp)
                 },
             maxLines = 3
 
@@ -98,8 +99,8 @@ fun BankAccountToolbar(
             modifier = Modifier
                 .constrainAs(ref = icNotification) {
                     top.linkTo(parent.top, 8.dp)
-                    end.linkTo(parent.end, 16.dp)
-                    bottom.linkTo(parent.bottom, 16.dp)
+                    end.linkTo(parent.end, MEDIUM_PADDING)
+                    bottom.linkTo(parent.bottom, MEDIUM_PADDING)
                 }
                 .size(24.dp)
         )

@@ -22,14 +22,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.MainActivity"
-            android:exported="true" />
-        <activity
             android:name=".presentation.WelcomeActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.LoginActivity"
             android:exported="true" />
+        <activity
+            android:name=".presentation.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.BankStatementActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.NewTransferActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ProofBankTransactionActivity"
+            android:exported="true" />
+
+
     </application>
 
 </manifest>

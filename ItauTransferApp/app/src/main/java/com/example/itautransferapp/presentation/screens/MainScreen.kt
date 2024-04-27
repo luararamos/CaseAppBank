@@ -25,8 +25,6 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -34,8 +32,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.itautransferapp.R
-import com.example.itautransferapp.presentation.components.BottomBarItem
-import com.example.itautransferapp.presentation.components.BottomNavGraph
+import com.example.itautransferapp.presentation.navigation.BottomBarItem
+import com.example.itautransferapp.presentation.navigation.BottomNavGraph
+import com.example.itautransferapp.ui.theme.BIG_INPUT_HEIGHT
+import com.example.itautransferapp.ui.theme.CORNER_RADIUS_32
+import com.example.itautransferapp.ui.theme.ELEVATION_16
+import com.example.itautransferapp.ui.theme.EXTRA_SMALL_PADDING
+import com.example.itautransferapp.ui.theme.FONT_8
+import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
 
 @Composable
 fun MainScreen() {
@@ -61,9 +65,9 @@ fun BottomBar(navController: NavHostController) {
 
     BottomNavigation(
         modifier = Modifier
-            .height(80.dp)
+            .height(BIG_INPUT_HEIGHT)
             .fillMaxWidth()
-            .shadow(elevation = 16.dp, spotColor = Color.Black)
+            .shadow(elevation = ELEVATION_16, spotColor = Color.Black)
             .background(colorResource(id = R.color.colorTextTertiary)),
         contentColor = colorResource(id = R.color.colorTextTertiary),
         backgroundColor = Color.White
@@ -90,12 +94,17 @@ fun RowScope.AddItem(
         icon = {
             Box(
                 modifier = Modifier
-                    .padding(4.dp, 4.dp,4.dp,4.dp)
+                    .padding(EXTRA_SMALL_PADDING)
             ) {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .padding(16.dp, 4.dp, 16.dp, 4.dp)
+                        .padding(
+                            MEDIUM_PADDING,
+                            EXTRA_SMALL_PADDING,
+                            MEDIUM_PADDING,
+                            EXTRA_SMALL_PADDING
+                        )
                         .graphicsLayer {
                             scaleX = if (isSelected) 1.8f else 1f
                             scaleY = if (isSelected) 1.8f else 1f
@@ -105,10 +114,10 @@ fun RowScope.AddItem(
                                 .background(
                                     color = colorResource(id = R.color.colorBackground),
                                     shape = RoundedCornerShape(
-                                        topStart = 30.dp,
-                                        topEnd = 30.dp,
-                                        bottomEnd = 30.dp,
-                                        bottomStart = 30.dp
+                                        topStart = CORNER_RADIUS_32,
+                                        topEnd = CORNER_RADIUS_32,
+                                        bottomEnd = CORNER_RADIUS_32,
+                                        bottomStart = CORNER_RADIUS_32
                                     )
                                 )
                             else Modifier
@@ -118,7 +127,7 @@ fun RowScope.AddItem(
                         Icon(
                             modifier = Modifier
                                 .weight(0.8f)
-                                .padding(4.dp, 4.dp, 4.dp, 4.dp),
+                                .padding(EXTRA_SMALL_PADDING),
                             tint = if (isSelected) Color.White else colorResource(id = R.color.colorTextTertiary),
                             imageVector = ImageVector.vectorResource(id = screen.iconId),
                             contentDescription = "Navigation Icon"
@@ -126,7 +135,7 @@ fun RowScope.AddItem(
                         if (isSelected) {
                             Text(
                                 modifier = Modifier.weight(1f),
-                                fontSize = 8.sp,
+                                fontSize = FONT_8,
                                 text = screen.title,
                                 color = Color.White
                             )

@@ -2,6 +2,7 @@ package com.example.itautransferapp.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -20,18 +21,20 @@ import com.example.itautransferapp.ui.theme.CORNER_RADIUS_16
 import com.example.itautransferapp.ui.theme.FONT_14
 import com.example.itautransferapp.ui.theme.MAX_INPUT_HEIGHT
 import com.example.itautransferapp.ui.theme.MAX_INPUT_WIDTH
-import com.example.itautransferapp.ui.theme.MEDIUM_INPUT_HEIGHT
-import com.example.itautransferapp.ui.theme.MEDIUM_INPUT_WIDTH
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
+import com.example.itautransferapp.ui.theme.MIN_INPUT_HEIGHT
+import com.example.itautransferapp.ui.theme.MIN_INPUT_WIDTH
 import com.example.itautransferapp.ui.theme.MIN_SMALL_PADDING
+import com.example.itautransferapp.ui.theme.SMALL_PADDING
 
 @Composable
-fun CardNewTransfer() {
+fun CardNewTransfer(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .size(width = MAX_INPUT_WIDTH, height = MAX_INPUT_HEIGHT)
             .clip(RoundedCornerShape(CORNER_RADIUS_16))
             .background(colorResource(id = R.color.colorPrimary))
+            .clickable(onClick = onClick)
     ) {
         Column(
             modifier = Modifier.padding(MIN_SMALL_PADDING)
@@ -39,13 +42,15 @@ fun CardNewTransfer() {
 
             Image(
                 modifier = Modifier
-                    .size(MEDIUM_INPUT_WIDTH, MEDIUM_INPUT_HEIGHT)
-                    .padding(MEDIUM_PADDING),
+                    .size(MIN_INPUT_WIDTH, MIN_INPUT_HEIGHT)
+                    .padding(SMALL_PADDING),
                 painter = painterResource(id = R.drawable.ic_bank),
                 contentDescription = null
             )
 
             Text(
+                modifier = Modifier
+                    .padding(SMALL_PADDING),
                 text = stringResource(id = R.string.new_transfer),
                 style = TextStyle(
                     fontSize = FONT_14
