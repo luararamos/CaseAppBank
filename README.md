@@ -17,7 +17,7 @@ Nesse cenário hipotético todos os métodos são do tipo GET.
 ------LOGIN:
   Requisitos:
     - O campo user deve aceitar e-mai
-    - O campo password deve validar se a senha possui pelo menos uma letra maiúscula e 5 números.
+    - O campo password deve validar se a senha possui pelo menos uma letra maiúscula e um número.
     - Após validar os dados de login utilize os dados digitados em login e senha para obter apenas 1 usuário.
 
 End-point Listar usuários:
@@ -56,6 +56,13 @@ Ao final da operação, uma mensagem deverá ser exibida:
 
   Se a transferência não for completada, exibir mensagem de erro explicando o motivo, vide exemplo:
     Ex: Sua transferência não foi completada pois (escrever o motivo)
+
+Escolha, dentre as opções de linguagens de programação abaixo, qual se sentir mais confortável em desenvolver o algoritmo e pense nos casos de teste descritos acima!
+  - Java
+  - Kotlin
+
+Será observado o uso de boas práticas de programação, bem como orientaçao à objetos e se possível, aplicação de padrões de projeto.
+Boa sorte!
 
 Escolha, dentre as opções de linguagens de programação abaixo, qual se sentir mais confortável em desenvolver o algoritmo e pense nos casos de teste descritos acima!
   - Java
