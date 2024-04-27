@@ -27,7 +27,9 @@ import com.example.itautransferapp.presentation.components.CardNewTransfer
 import com.example.itautransferapp.presentation.components.BankAccountToolbar
 import com.example.itautransferapp.ui.theme.CORNER_RADIUS_16
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
+import com.example.itautransferapp.ui.theme.MEDIUM_SPACER
 import com.example.itautransferapp.ui.theme.SUPER_PADDING
+import com.example.itautransferapp.ui.theme.SUPER_SPACER
 
 @Composable
 fun HomeScreen(
@@ -54,12 +56,12 @@ fun HomeScreen(
 
         ) {
             Column {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(MEDIUM_SPACER))
                 CardBank(name = "Carlos Daniel", accountBalance = "3.450,00"){
                     val intent = Intent(context, BankStatementActivity::class.java)
                     context.startActivity(intent)
                 }
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(SUPER_SPACER))
                 CardNewTransfer(){
                     val intent = Intent(context, NewTransferActivity::class.java)
                     context.startActivity(intent)

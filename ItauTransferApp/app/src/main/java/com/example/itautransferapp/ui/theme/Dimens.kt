@@ -28,6 +28,9 @@ val FONT_24 = 24.sp
 val FONT_32 = 32.sp
 val FONT_48 = 48.sp
 
+val MEDIUM_SPACER = 16.dp
+val SUPER_SPACER = 32.dp
+
 val MIN_INPUT_HEIGHT = 48.dp
 val MIN_INPUT_WIDTH = 48.dp
 val MEDIUM_INPUT_HEIGHT = 72.dp
