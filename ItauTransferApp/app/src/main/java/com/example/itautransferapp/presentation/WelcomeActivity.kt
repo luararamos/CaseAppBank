@@ -21,13 +21,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.components.ButtonAction
+import com.example.itautransferapp.presentation.screens.home.HomeViewModel
 import com.example.itautransferapp.ui.theme.CustomRobotoCondensed
 import com.example.itautransferapp.ui.theme.FONT_24
 import com.example.itautransferapp.ui.theme.MAX_INPUT_HEIGHT
 import com.example.itautransferapp.ui.theme.MAX_INPUT_WIDTH
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WelcomeActivity : ComponentActivity() {
+
+    val viewModel: HomeViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

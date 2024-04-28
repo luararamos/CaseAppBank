@@ -89,6 +89,26 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.8.1")
 
     implementation ("androidx.compose.runtime:runtime-livedata:1.0.0-beta01")
+    // Koin
+    implementation("io.insert-koin:koin-android:3.5.3")
+    implementation("io.insert-koin:koin-core")
+    implementation ("io.insert-koin:koin-android-viewmodel:3.5.3")
+
+    implementation ("org.koin:koin-android:3.5.3")
+    implementation ("org.koin:koin-androidx-scope:3.5.3")
+    implementation ("org.koin:koin-androidx-viewmodel:3.5.3")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:3.5.3")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8")
+
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Ok Http
+    implementation ("com.squareup.okhttp3:okhttp:4.2.1")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.2.1")
+    implementation ("com.squareup.okhttp3:okhttp-urlconnection:4.2.1")
 
 
 
