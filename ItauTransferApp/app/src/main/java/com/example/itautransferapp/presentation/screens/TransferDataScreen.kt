@@ -1,7 +1,6 @@
 package com.example.itautransferapp.presentation.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -107,7 +106,8 @@ fun TransferDataScreen(navController: NavController) {
                 Column(
                     modifier = Modifier
                         .background(
-                            colorResource(id = R.color.colorBackgroundWhite))
+                            colorResource(id = R.color.colorBackgroundWhite)
+                        )
                 ) {
                     OutlinedTextFieldAlertDialog(
                         label = stringResource(id = R.string.select_bank),
@@ -120,22 +120,34 @@ fun TransferDataScreen(navController: NavController) {
 
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.writing_cont),
-                        isError = false, maxLength = 5,
+                        isError = false,
+                        onTextChange = {
+
+                        }
                     )
 
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.name_receptor),
-                        isError = false, maxLength = 5,
+                        isError = false,
+                        onTextChange = {
+
+                        }
                     )
 
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.cpf_receptor),
-                        isError = false, maxLength = 5,
+                        isError = false,
+                        onTextChange = {
+
+                        }
                     )
 
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.value_transfer),
-                        isError = false, maxLength = 5,
+                        isError = false,
+                        onTextChange = {
+
+                        }
                     )
 
                     OutlinedTextFieldAlertDialog(
@@ -149,7 +161,10 @@ fun TransferDataScreen(navController: NavController) {
 
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.messenger),
-                        isError = false, maxLength = 5
+                        isError = false,
+                        onTextChange = {
+
+                        }
                     )
 
                     SimpleCheckBox(
@@ -166,7 +181,7 @@ fun TransferDataScreen(navController: NavController) {
             }
         }
 
-        item{
+        item {
             Spacer(
                 modifier = Modifier.padding(EXTRA_SMALL_PADDING)
             )
@@ -178,14 +193,14 @@ fun TransferDataScreen(navController: NavController) {
         title = textTitleDialog,
         list = listBank,
         indiceSelected = textIndexInt
-    ) { textSelected , indice->
+    ) { textSelected, indice ->
         textIndexInt.value = indice
         textStateBank.value = textSelected
         showBankDialog.value = false
     }
 
     SimpleDialog(
-        showDialogState = showTypeTranferDialog ,
+        showDialogState = showTypeTranferDialog,
         title = textTitleDialog,
         list = listTypeTransfer,
         indiceSelected = textIndexInt

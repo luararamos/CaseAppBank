@@ -17,6 +17,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig = signingConfigs.getByName("debug")
     }
     buildFeatures {
         compose = true
@@ -68,6 +69,9 @@ dependencies {
     androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.3.1")
     implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
+    // ViewModel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0")
+
     // Navigation Compose
     implementation("androidx.navigation:navigation-compose:2.8.0-alpha01")
     implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
@@ -90,20 +94,15 @@ dependencies {
 
     implementation ("androidx.compose.runtime:runtime-livedata:1.0.0-beta01")
     // Koin
-    implementation("io.insert-koin:koin-android:3.5.3")
-    implementation("io.insert-koin:koin-core")
-    implementation ("io.insert-koin:koin-android-viewmodel:3.5.3")
-
-    implementation ("org.koin:koin-android:3.5.3")
-    implementation ("org.koin:koin-androidx-scope:3.5.3")
-    implementation ("org.koin:koin-androidx-viewmodel:3.5.3")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-savedstate:3.5.3")
-
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8")
+    implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-core:3.4.0")
+    implementation("io.insert-koin:koin-android-compat:3.4.0")
+    implementation ("io.insert-koin:koin-androidx-compose:3.4.0")
 
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.google.code.gson:gson:2.8.6")
 
     // Ok Http
     implementation ("com.squareup.okhttp3:okhttp:4.2.1")
