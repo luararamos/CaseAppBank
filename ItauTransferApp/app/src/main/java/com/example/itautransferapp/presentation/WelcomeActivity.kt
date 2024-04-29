@@ -71,11 +71,11 @@ class WelcomeActivity : ComponentActivity() {
                 )
                 Text(
                     modifier = Modifier.padding(MEDIUM_PADDING),
-                    textAlign = TextAlign.Center ,
+                    textAlign = TextAlign.Center,
                     text = stringResource(id = R.string.welcome_message),
                     color = colorResource(id = R.color.colorTextTertiary)
                 )
-                ButtonAction(stringResource(id = R.string.start), true) {
+                ButtonAction(stringResource(id = R.string.start), isLoading = false, arrow = true) {
                     startActivity(Intent(this@WelcomeActivity, LoginActivity::class.java))
                     finish()
                 }

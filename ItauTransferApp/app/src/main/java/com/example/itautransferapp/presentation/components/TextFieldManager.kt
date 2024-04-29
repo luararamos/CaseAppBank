@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -21,13 +23,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.itautransferapp.R
 import com.example.itautransferapp.ui.theme.FONT_16
@@ -38,13 +42,16 @@ import com.example.itautransferapp.ui.theme.SUPER_PADDING
 fun TextFieldManager(
     label: String,
     isError: Boolean,
-    maxLength: Int? = null,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    errorMessage: String = stringResource(id = R.string.generic_error),
     leadingIconId: Int? = null,
-    trailingIconId: Int? = null
+    trailingIconId: Int? = null,
+    onTextChange: (String) -> Unit
 ) {
     val textState = remember { mutableStateOf("") }
-    val errorText = if (isError) "Erro! Verifique a entrada." else ""
-    val characterCount = maxLength?.let { "${textState.value.length} / $it" } ?: ""
+    val passwordVisible = remember { mutableStateOf(false) }
+    val isPasswordField = trailingIconId != null
+    val errorText = if (isError) errorMessage else ""
     val leadingIcon: Painter? = leadingIconId?.let { painterResource(id = it) }
     val trailingIcon: Painter? = trailingIconId?.let { painterResource(id = it) }
 
@@ -66,14 +73,17 @@ fun TextFieldManager(
                 .padding(horizontal = SUPER_PADDING),
             value = textState.value,
             onValueChange = { newText ->
-                if (maxLength == null || newText.length <= maxLength) {
-                    textState.value = newText
-                }
+                textState.value = newText
+                onTextChange(newText)
             },
             isError = isError,
+            visualTransformation = if (isPasswordField && !passwordVisible.value) PasswordVisualTransformation() else VisualTransformation.None,
+            keyboardOptions = KeyboardOptions(keyboardType = if (isPasswordField) KeyboardType.Password else KeyboardType.Text),
             keyboardActions = KeyboardActions(onDone = { }),
             supportingText = {
-                Text(text = errorText)
+                if (isError) {
+                    Text(text = errorText, color = colorResource(id = R.color.colorError))
+                }
             },
             leadingIcon = {
                 if (leadingIcon != null) leadingIcon?.let {
@@ -85,7 +95,9 @@ fun TextFieldManager(
             },
             trailingIcon = {
                 if (trailingIcon != null)
-                    trailingIcon?.let { Icon(painter = it, contentDescription = null) }
+                    IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
+                        trailingIcon?.let { Icon(painter = it, contentDescription = null) }
+                    }
             },
             maxLines = 1,
             colors = TextFieldDefaults
@@ -95,8 +107,6 @@ fun TextFieldManager(
                 )
         )
     }
-
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -104,15 +114,11 @@ fun TextFieldManager(
 fun OutlinedTextFieldManager(
     label: String,
     isError: Boolean,
-    maxLength: Int? = null,
+    onTextChange: (String) -> Unit
 ) {
 
     val textState = remember { mutableStateOf("") }
     val errorText = if (isError) "Erro! Verifique a entrada." else ""
-    val characterCount = maxLength?.let { "${textState.value.length} / $it" } ?: ""
-    var textSelectedDialog = ""
-
-
 
     Column {
         Text(
@@ -132,9 +138,9 @@ fun OutlinedTextFieldManager(
                 .fillMaxWidth()
                 .padding(horizontal = SUPER_PADDING),
             onValueChange = { newText ->
-                if (maxLength == null || newText.length <= maxLength) {
-                    textState.value = newText
-                }
+                textState.value = newText
+                onTextChange(newText)
+
             },
             value = textState.value,
             isError = isError,

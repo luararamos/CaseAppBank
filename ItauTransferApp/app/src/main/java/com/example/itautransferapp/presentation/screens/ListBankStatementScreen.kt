@@ -6,7 +6,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.example.itautransferapp.presentation.components.CardStatementTransaction
 import com.example.itautransferapp.ui.theme.EXTRA_SMALL_PADDING
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING

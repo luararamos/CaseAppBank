@@ -21,6 +21,10 @@ val CORNER_RADIUS_32 = 32.dp
 
 val ELEVATION_16 = 16.dp
 
+val STROKE_WIDTH_SMALL = 2.dp
+
+val MIN_SIZE = 16.dp
+
 val FONT_8 = 8.sp
 val FONT_14 = 14.sp
 val FONT_16 = 16.sp

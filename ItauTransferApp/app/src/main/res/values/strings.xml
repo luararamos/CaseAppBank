@@ -41,6 +41,7 @@
     <string name="cont">Conta</string>
     <string name="date">Data</string>
     <string name="hour">Hora</string>
+    <string name="generic_error">"Erro! Verifique a entrada."</string>
 
 
 </resources>
