@@ -48,7 +48,7 @@ fun HomeScreen(
             .background(colorResource(id = R.color.colorBackground))
     ) {
         BankAccountToolbar(
-            photo = R.drawable.img_transfer,
+            photo = state.photo,
             name = state.name,
             ag = state.ag,
             cc = state.account
