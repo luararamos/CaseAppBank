@@ -21,7 +21,7 @@ sealed class BottomBarItem(
 
     object Messenger : BottomBarItem(
         route = "messenger",
-        title = "Messenger",
+        title = "Messeng.",
         iconId = R.drawable.ic_messenger
     )
     object Settings : BottomBarItem(

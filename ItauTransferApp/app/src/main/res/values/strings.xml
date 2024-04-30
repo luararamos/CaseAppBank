@@ -44,7 +44,8 @@
     <string name="generic_error">Erro! Verifique a entrada.</string>
     <string name="email_error">Email deve ser um email valido</string>
     <string name="password_error">Senha deve conter pelo menos um número e uma letra maiúscula</string>
-    <string name="email_and_password_invalid">Email e/ou senha incorretos"</string>
+    <string name="email_and_password_invalid">Email e/ou senha incorretos</string>
+    <string name="number_ag_itau">342</string>
 
 
 </resources>

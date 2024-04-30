@@ -3,21 +3,17 @@ package com.example.itautransferapp.presentation.screens.login
 import android.content.Context
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.itautransferapp.R
 import com.example.itautransferapp.data.local.PreferencesManager
-import com.example.itautransferapp.data.remote.model.UserAccount
+import com.example.itautransferapp.data.remote.model.User
 import com.example.itautransferapp.domain.APIListener
-import com.example.itautransferapp.domain.repository.UserAccountRepository
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.itautransferapp.domain.repository.UserRepository
 
 class LoginViewModel (
     private val applicationContext: Context,
-    private val userAccountRepository: UserAccountRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
     val email = MutableLiveData<String>("")
     val password = MutableLiveData<String>("")
@@ -38,8 +34,8 @@ class LoginViewModel (
 
 
     fun loadUserData(email: String, password: String) {
-        userAccountRepository.getUserAccount(object : APIListener<UserAccount> {
-            override fun onSuccess(response: UserAccount) {
+        userRepository.getUser(object : APIListener<User> {
+            override fun onSuccess(response: User) {
                 val user = response.find {
                     it.email.trim() == email.trim()
                             && it.password.trim() == password.trim() }
