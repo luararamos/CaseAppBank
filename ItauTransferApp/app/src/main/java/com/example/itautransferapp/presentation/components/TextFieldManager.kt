@@ -41,7 +41,7 @@ import com.example.itautransferapp.ui.theme.SUPER_PADDING
 @Composable
 fun TextFieldManager(
     label: String,
-    isError: Boolean,
+    isError: Boolean = false,
     keyboardType: KeyboardType = KeyboardType.Text,
     errorMessage: String = stringResource(id = R.string.generic_error),
     leadingIconId: Int? = null,

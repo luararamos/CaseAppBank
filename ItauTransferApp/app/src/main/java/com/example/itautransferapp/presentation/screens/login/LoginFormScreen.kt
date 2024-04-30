@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -39,12 +40,19 @@ fun LoginFormScreen() {
     val viewModel: LoginViewModel = getViewModel()
     val context = LocalContext.current
 
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
     val state = viewModel.state.value
     val isLoading = viewModel.isLoading.value
     val errorMessage = viewModel.errorMessage.value
+
+
+    val email by viewModel.email.observeAsState("")
+    val emailValid by viewModel.emailValid.observeAsState(true)
+    val emailErrorMessage by viewModel.emailErrorMessage.observeAsState("")
+
+    val password by viewModel.password.observeAsState("")
+    val passwordValid by viewModel.passwordValid.observeAsState(true)
+    val passwordErrorMessage by viewModel.passwordErrorMessage.observeAsState("")
+
 
     Column(
         modifier = Modifier
@@ -75,18 +83,18 @@ fun LoginFormScreen() {
         )
         TextFieldManager(
             label = stringResource(id = R.string.email),
-            isError = false,
+            isError = !emailValid,
+            errorMessage = emailErrorMessage,
             leadingIconId = R.drawable.ic_person,
-            onTextChange = { email = it }
-
+            onTextChange = viewModel::onEmailChanged
         )
         TextFieldManager(
             label = stringResource(id = R.string.password),
-            isError = false,
+            isError = !passwordValid,
+            errorMessage= passwordErrorMessage,
             leadingIconId = R.drawable.ic_padlock,
             trailingIconId = R.drawable.ic_observer,
-            onTextChange = { password = it }
-
+            onTextChange = viewModel::onPasswordChanged
         )
 
         Spacer(modifier = Modifier.weight(1f))
@@ -125,8 +133,6 @@ fun LoginFormScreen() {
         val intent = Intent(context, MainActivity::class.java)
         context.startActivity(intent)
     }
-
-
 
     LaunchedEffect(errorMessage) {
         if (errorMessage.isNotEmpty()) {
