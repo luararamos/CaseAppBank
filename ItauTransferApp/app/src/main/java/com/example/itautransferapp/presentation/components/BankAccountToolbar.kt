@@ -16,7 +16,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -25,15 +24,21 @@ import com.example.itautransferapp.ui.theme.CORNER_RADIUS_32
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
 import com.example.itautransferapp.ui.theme.MIN_INPUT_HEIGHT
 import com.example.itautransferapp.ui.theme.MIN_INPUT_WIDTH
-
+import com.google.accompanist.glide.rememberGlidePainter
 
 @Composable
 fun BankAccountToolbar(
-    photo: Int,
+    photo: String,
     name: String,
     ag: String,
     cc: String
 ) {
+    val painter = rememberGlidePainter(
+        request = photo,
+        fadeIn = true,
+        previewPlaceholder = R.drawable.ic_placeholder
+    )
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,7 +64,7 @@ fun BankAccountToolbar(
                 .size(60.dp)
         ) {
             Image(
-                painter = painterResource(id = photo),
+                painter = painter,
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop,
@@ -90,7 +95,6 @@ fun BankAccountToolbar(
                     start.linkTo(imgPhoto.end, 16.dp)
                 },
             maxLines = 3
-
         )
 
         Image(
@@ -105,15 +109,4 @@ fun BankAccountToolbar(
                 .size(24.dp)
         )
     }
-}
-
-@Composable
-@Preview
-fun preview() {
-    BankAccountToolbar(
-        photo = R.drawable.ic_person,
-        name = "Carlos Daniel",
-        ag = "342",
-        cc = "322390-0"
-    )
 }

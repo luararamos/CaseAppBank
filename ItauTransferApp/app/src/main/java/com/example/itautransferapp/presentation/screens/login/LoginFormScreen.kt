@@ -53,7 +53,6 @@ fun LoginFormScreen() {
     val passwordValid by viewModel.passwordValid.observeAsState(true)
     val passwordErrorMessage by viewModel.passwordErrorMessage.observeAsState("")
 
-
     Column(
         modifier = Modifier
             .fillMaxSize()

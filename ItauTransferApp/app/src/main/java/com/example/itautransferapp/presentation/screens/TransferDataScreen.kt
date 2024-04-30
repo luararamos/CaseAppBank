@@ -1,5 +1,6 @@
 package com.example.itautransferapp.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,6 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -34,6 +36,10 @@ import com.example.itautransferapp.ui.theme.CORNER_RADIUS_16
 import com.example.itautransferapp.ui.theme.ELEVATION_16
 import com.example.itautransferapp.ui.theme.EXTRA_SMALL_PADDING
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 @Composable
 fun TransferDataScreen(navController: NavController) {
@@ -173,11 +179,10 @@ fun TransferDataScreen(navController: NavController) {
                     )
 
                     ButtonAction(text = stringResource(id = R.string.next)) {
-                        navController.navigate("confirmTransferScreen")
+                        // navController.navigate("confirmTransferScreen")
                     }
 
                 }
-
             }
         }
 
@@ -186,7 +191,6 @@ fun TransferDataScreen(navController: NavController) {
                 modifier = Modifier.padding(EXTRA_SMALL_PADDING)
             )
         }
-
     }
     SimpleDialog(
         showDialogState = showBankDialog,

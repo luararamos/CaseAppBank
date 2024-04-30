@@ -3,13 +3,11 @@ package com.example.itautransferapp.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -18,12 +16,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.itautransferapp.R
-import com.example.itautransferapp.presentation.screens.BankTransaction
+import com.example.itautransferapp.presentation.screens.listStatement.BankTransaction
 import com.example.itautransferapp.ui.theme.CORNER_RADIUS_16
 import com.example.itautransferapp.ui.theme.ELEVATION_16
 import com.example.itautransferapp.ui.theme.FONT_14
 import com.example.itautransferapp.ui.theme.FONT_16
-import com.example.itautransferapp.ui.theme.FONT_24
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
 
 @Composable

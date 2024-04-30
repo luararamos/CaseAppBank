@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.res.stringResource
 import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.components.SimpleToolbar
-import com.example.itautransferapp.presentation.screens.ListBankStatementScreen
+import com.example.itautransferapp.presentation.screens.listStatement.ListBankStatementScreen
 
 class BankStatementActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

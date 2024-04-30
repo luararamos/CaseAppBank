@@ -1,4 +1,4 @@
-package com.example.itautransferapp.presentation.screens
+package com.example.itautransferapp.presentation.screens.listStatement
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
