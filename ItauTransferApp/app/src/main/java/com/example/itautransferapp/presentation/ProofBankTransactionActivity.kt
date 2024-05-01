@@ -15,16 +15,18 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.components.ButtonAction
+import com.example.itautransferapp.presentation.components.CardBalanceAmount
 import com.example.itautransferapp.presentation.components.CardInformationTransfer
 import com.example.itautransferapp.presentation.components.SimpleToolbar
-import com.example.itautransferapp.presentation.screens.Transacao
+import com.example.itautransferapp.presentation.data.TransactionDetails
+import com.example.itautransferapp.presentation.screens.transfer.Transacao
 import com.example.itautransferapp.ui.theme.FONT_24
 
 class ProofBankTransactionActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val transaction = Transacao(
+            val transaction = TransactionDetails(
                 nome = "Carlos Silva",
                 cpf = "123.456.789-00",
                 agencia = "001",
@@ -51,8 +53,10 @@ class ProofBankTransactionActivity : ComponentActivity() {
                     color = colorResource(id = R.color.colorSuccess)
                 )
                 CardInformationTransfer(transaction = transaction)
+                CardBalanceAmount( "emissor", "30,00")
+                CardBalanceAmount( "receptor", "859,00")
 
-                ButtonAction(text = stringResource(id = R.string.send_proof)) {
+                ButtonAction(text = stringResource(id = R.string.finish)) {
                     finish()
                 }
 

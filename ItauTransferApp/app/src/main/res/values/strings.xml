@@ -25,7 +25,7 @@
     <string name="transfer">Transferência</string>
     <string name="bank_statement">Extrato</string>
     <string name="proof">Comprovante</string>
-    <string name="send_proof">Comprovante</string>
+    <string name="finish">Finalizar</string>
     <string name="select_bank">Selecione o Banco</string>
     <string name="writing_cont">Digite a conta</string>
     <string name="name_receptor">Nome do Receptor</string>
@@ -46,6 +46,7 @@
     <string name="password_error">Senha deve conter pelo menos um número e uma letra maiúscula</string>
     <string name="email_and_password_invalid">Email e/ou senha incorretos</string>
     <string name="number_ag_itau">342</string>
+    <string name="balance_amount">Saldo do %1$s: R$ %2$s</string>
 
 
 </resources>

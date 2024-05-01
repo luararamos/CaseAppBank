@@ -1,4 +1,4 @@
-package com.example.itautransferapp.presentation.screens
+package com.example.itautransferapp.presentation.screens.transfer
 
 import android.util.Log
 import androidx.compose.foundation.background
@@ -179,7 +179,7 @@ fun TransferDataScreen(navController: NavController) {
                     )
 
                     ButtonAction(text = stringResource(id = R.string.next)) {
-                        // navController.navigate("confirmTransferScreen")
+                        navController.navigate("confirmTransferScreen")
                     }
 
                 }

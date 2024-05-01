@@ -10,8 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.components.SimpleToolbar
-import com.example.itautransferapp.presentation.screens.ConfirmTransferScreen
-import com.example.itautransferapp.presentation.screens.TransferDataScreen
+import com.example.itautransferapp.presentation.screens.transfer.ConfirmTransferScreen
+import com.example.itautransferapp.presentation.screens.transfer.TransferDataScreen
 
 class NewTransferActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
