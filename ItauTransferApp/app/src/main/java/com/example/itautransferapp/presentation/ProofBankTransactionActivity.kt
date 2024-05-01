@@ -18,8 +18,7 @@ import com.example.itautransferapp.presentation.components.ButtonAction
 import com.example.itautransferapp.presentation.components.CardBalanceAmount
 import com.example.itautransferapp.presentation.components.CardInformationTransfer
 import com.example.itautransferapp.presentation.components.SimpleToolbar
-import com.example.itautransferapp.presentation.data.TransactionDetails
-import com.example.itautransferapp.presentation.screens.transfer.Transacao
+import com.example.itautransferapp.presentation.detailsview.TransactionDetails
 import com.example.itautransferapp.ui.theme.FONT_24
 
 class ProofBankTransactionActivity : ComponentActivity() {

@@ -9,7 +9,7 @@ import com.example.itautransferapp.data.local.PreferencesManager
 import com.example.itautransferapp.data.remote.model.UserAccount
 import com.example.itautransferapp.domain.APIListener
 import com.example.itautransferapp.domain.repository.UserRepository
-import com.example.itautransferapp.presentation.data.UserDetails
+import com.example.itautransferapp.presentation.detailsview.UserDetails
 
 class HomeViewModel(
     private val applicationContext: Context,

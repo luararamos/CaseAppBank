@@ -10,7 +10,7 @@ import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.ProofBankTransactionActivity
 import com.example.itautransferapp.presentation.components.ButtonAction
 import com.example.itautransferapp.presentation.components.CardInformationTransfer
-import com.example.itautransferapp.presentation.data.TransactionDetails
+import com.example.itautransferapp.presentation.detailsview.TransactionDetails
 
 @Composable
 fun ConfirmTransferScreen(){
@@ -35,13 +35,3 @@ fun ConfirmTransferScreen(){
 
     }
 }
-
-data class Transacao(
-    val nome: String,
-    val cpf: String,
-    val agencia: String,
-    val conta: String,
-    val data: String,
-    val hora: String,
-    val valor: String
-)

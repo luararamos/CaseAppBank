@@ -11,11 +11,11 @@ import com.example.itautransferapp.data.remote.model.User
 import com.example.itautransferapp.domain.APIListener
 import com.example.itautransferapp.domain.repository.UserRepository
 
-class LoginViewModel (
+class LoginViewModel(
     private val applicationContext: Context,
     private val userRepository: UserRepository
 ) : ViewModel() {
-    val email = MutableLiveData<String>("")
+    var email = mutableStateOf("")
     val password = MutableLiveData<String>("")
     val emailValid = MutableLiveData<Boolean>(true)
     val passwordValid = MutableLiveData<Boolean>(true)
@@ -32,18 +32,23 @@ class LoginViewModel (
     private var _errorMessage = mutableStateOf("")
     val errorMessage: State<String> = _errorMessage
 
+    init {
+        showSavedUserIfAvailable()
+    }
 
     fun loadUserData(email: String, password: String) {
         userRepository.getUser(object : APIListener<User> {
             override fun onSuccess(response: User) {
                 val user = response.find {
                     it.email.trim() == email.trim()
-                            && it.password.trim() == password.trim() }
+                            && it.password.trim() == password.trim()
+                }
                 if (user != null) {
                     _state.value = user.id
                     PreferencesManager.saveLastLoggedUser(applicationContext, user)
                 } else {
-                    _errorMessage.value = applicationContext.getString(R.string.email_and_password_invalid)
+                    _errorMessage.value =
+                        applicationContext.getString(R.string.email_and_password_invalid)
                 }
                 _isLoading.value = false
             }
@@ -57,6 +62,15 @@ class LoginViewModel (
                 _isLoading.value = stateLoading
             }
         })
+    }
+
+    fun showSavedUserIfAvailable() {
+        val user = PreferencesManager.getLastLoggedUser(applicationContext)
+        if (user != null) {
+            this.email.value = user.email
+        } else {
+            this.email.value = ""
+        }
     }
 
     fun onEmailChanged(email: String) {
@@ -73,11 +87,9 @@ class LoginViewModel (
             if (passwordValid.value == true) "" else applicationContext.getString(R.string.password_error)
     }
 
-
     private fun isValidEmail(email: String): Boolean {
         return email.contains("@") && email.endsWith(".com")
     }
-
 
     private fun isValidPassword(password: String): Boolean {
         return password.any { it.isDigit() } && password.any { it.isUpperCase() }

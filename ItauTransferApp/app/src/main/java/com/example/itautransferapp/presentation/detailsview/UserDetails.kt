@@ -1,4 +1,4 @@
-package com.example.itautransferapp.presentation.data
+package com.example.itautransferapp.presentation.detailsview
 
 data class UserDetails (
     val id: String,

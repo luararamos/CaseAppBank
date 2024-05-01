@@ -18,8 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.itautransferapp.R
-import com.example.itautransferapp.presentation.data.TransactionDetails
-import com.example.itautransferapp.presentation.screens.transfer.Transacao
+import com.example.itautransferapp.presentation.detailsview.TransactionDetails
 import com.example.itautransferapp.ui.theme.CORNER_RADIUS_16
 import com.example.itautransferapp.ui.theme.ELEVATION_16
 import com.example.itautransferapp.ui.theme.FONT_14

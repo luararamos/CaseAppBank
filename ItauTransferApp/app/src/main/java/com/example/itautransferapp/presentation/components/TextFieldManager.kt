@@ -46,9 +46,10 @@ fun TextFieldManager(
     errorMessage: String = stringResource(id = R.string.generic_error),
     leadingIconId: Int? = null,
     trailingIconId: Int? = null,
+    initialText: String = "",
     onTextChange: (String) -> Unit
 ) {
-    val textState = remember { mutableStateOf("") }
+    val textState = remember { mutableStateOf(initialText) }
     val passwordVisible = remember { mutableStateOf(false) }
     val isPasswordField = trailingIconId != null
     val errorText = if (isError) errorMessage else ""

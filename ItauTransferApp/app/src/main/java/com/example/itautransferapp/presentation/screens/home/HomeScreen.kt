@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -41,7 +42,9 @@ fun HomeScreen(
 
     val state = viewModel.state.value
 
-    viewModel.getUserData()
+    LaunchedEffect(key1 = true) {
+        viewModel.getUserData()
+    }
 
     Column(
         modifier = Modifier

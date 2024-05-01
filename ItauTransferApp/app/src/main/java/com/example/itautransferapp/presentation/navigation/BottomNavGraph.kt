@@ -22,6 +22,5 @@ fun BottomNavGraph(navController: NavHostController) {
         composable(route = BottomBarItem.Settings.route) {
         }
 
-
     }
 }

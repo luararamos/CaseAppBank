@@ -13,9 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,7 +24,6 @@ import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.MainActivity
 import com.example.itautransferapp.presentation.components.ButtonAction
 import com.example.itautransferapp.presentation.components.TextFieldManager
-import com.example.itautransferapp.presentation.screens.home.HomeViewModel
 import com.example.itautransferapp.ui.theme.FONT_16
 import com.example.itautransferapp.ui.theme.FONT_32
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
@@ -45,7 +41,7 @@ fun LoginFormScreen() {
     val errorMessage = viewModel.errorMessage.value
 
 
-    val email by viewModel.email.observeAsState("")
+    val email  = viewModel.email.value
     val emailValid by viewModel.emailValid.observeAsState(true)
     val emailErrorMessage by viewModel.emailErrorMessage.observeAsState("")
 
@@ -53,6 +49,9 @@ fun LoginFormScreen() {
     val passwordValid by viewModel.passwordValid.observeAsState(true)
     val passwordErrorMessage by viewModel.passwordErrorMessage.observeAsState("")
 
+    LaunchedEffect(key1 = true) {
+        viewModel.showSavedUserIfAvailable()
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -85,12 +84,13 @@ fun LoginFormScreen() {
             isError = !emailValid,
             errorMessage = emailErrorMessage,
             leadingIconId = R.drawable.ic_person,
-            onTextChange = viewModel::onEmailChanged
+            initialText = email,
+            onTextChange = { viewModel.onEmailChanged(it) }
         )
         TextFieldManager(
             label = stringResource(id = R.string.password),
             isError = !passwordValid,
-            errorMessage= passwordErrorMessage,
+            errorMessage = passwordErrorMessage,
             leadingIconId = R.drawable.ic_padlock,
             trailingIconId = R.drawable.ic_observer,
             onTextChange = viewModel::onPasswordChanged
@@ -138,6 +138,5 @@ fun LoginFormScreen() {
             Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
         }
     }
-
 
 }
