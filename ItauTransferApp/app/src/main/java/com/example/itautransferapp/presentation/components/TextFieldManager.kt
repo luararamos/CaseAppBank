@@ -19,8 +19,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,6 +37,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.itautransferapp.R
+import com.example.itautransferapp.common.CurrencyAmountInputVisualTransformation
 import com.example.itautransferapp.ui.theme.FONT_16
 import com.example.itautransferapp.ui.theme.SUPER_PADDING
 
@@ -109,13 +113,13 @@ fun TextFieldManager(
         )
     }
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OutlinedTextFieldManager(
     label: String,
     isError: Boolean,
-    onTextChange: (String) -> Unit
+    onTextChange: (String) -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
 ) {
 
     val textState = remember { mutableStateOf("") }
@@ -145,6 +149,7 @@ fun OutlinedTextFieldManager(
             },
             value = textState.value,
             isError = isError,
+            keyboardOptions = keyboardOptions,
             keyboardActions = KeyboardActions(onDone = { }),
             supportingText = {
                 Text(text = errorText)
@@ -165,10 +170,12 @@ fun OutlinedTextFieldAlertDialog(
     label: String,
     iconId: Int,
     text: String,
+    isError: Boolean,
     clickAlertDialog: () -> Unit
 ) {
     val textState = remember { mutableStateOf("") }
-    val borderColor = Color.Gray
+    val borderColor = if (!isError) Color.Gray else Color.Red // Altere a cor da borda se houver um erro
+
 
     Column(
         modifier = Modifier
@@ -209,3 +216,59 @@ fun OutlinedTextFieldAlertDialog(
 
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun MoneyTextField(
+    label: String,
+    value:String,
+    valueError: MutableState<String>,
+    isError: Boolean,
+    onTextChange: (String) -> Unit,
+) {
+
+    var text by remember { mutableStateOf(value) }
+    val errorText = if (isError) valueError.value else ""
+
+    Column {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = SUPER_PADDING)
+                .background(colorResource(id = R.color.colorBackgroundWhite)),
+            text = label,
+            color = colorResource(id = R.color.colorTextTertiary),
+            style = TextStyle(
+                fontSize = FONT_16
+            ),
+        )
+        OutlinedTextField(
+            modifier = Modifier
+                .background(Color.White)
+                .fillMaxWidth()
+                .padding(horizontal = SUPER_PADDING),
+            onValueChange = { newText ->
+                text = newText
+                onTextChange(newText)
+
+            },
+            visualTransformation = CurrencyAmountInputVisualTransformation(),
+            value = text,
+            isError = isError,
+            keyboardOptions =  KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardActions = KeyboardActions(onDone = { }),
+            supportingText = {
+                Text(text = errorText)
+            },
+            maxLines = 1,
+            colors = TextFieldDefaults
+                .outlinedTextFieldColors(
+                    containerColor = Color.White,
+                    focusedBorderColor = colorResource(id = R.color.colorPrimary)
+                )
+
+        )
+    }
+}
+
+

@@ -19,21 +19,17 @@ import com.example.itautransferapp.presentation.components.CardBalanceAmount
 import com.example.itautransferapp.presentation.components.CardInformationTransfer
 import com.example.itautransferapp.presentation.components.SimpleToolbar
 import com.example.itautransferapp.presentation.detailsview.TransactionDetails
+import com.example.itautransferapp.presentation.screens.transfer.model.Transacao
 import com.example.itautransferapp.ui.theme.FONT_24
 
 class ProofBankTransactionActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        val transaction = intent.getSerializableExtra("transaction") as Transacao
         setContent {
-            val transaction = TransactionDetails(
-                nome = "Carlos Silva",
-                cpf = "123.456.789-00",
-                agencia = "001",
-                conta = "1234-5",
-                data = "18/04/2024",
-                hora = "10am",
-                valor = "500,00"
-            )
+
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -52,8 +48,6 @@ class ProofBankTransactionActivity : ComponentActivity() {
                     color = colorResource(id = R.color.colorSuccess)
                 )
                 CardInformationTransfer(transaction = transaction)
-                CardBalanceAmount( "emissor", "30,00")
-                CardBalanceAmount( "receptor", "859,00")
 
                 ButtonAction(text = stringResource(id = R.string.finish)) {
                     finish()

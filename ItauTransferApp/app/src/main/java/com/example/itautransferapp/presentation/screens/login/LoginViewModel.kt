@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.itautransferapp.R
+import com.example.itautransferapp.common.ValidationUtils
 import com.example.itautransferapp.data.local.PreferencesManager
 import com.example.itautransferapp.data.remote.model.User
 import com.example.itautransferapp.domain.APIListener
@@ -75,23 +76,15 @@ class LoginViewModel(
 
     fun onEmailChanged(email: String) {
         this.email.value = email
-        emailValid.value = isValidEmail(email)
+        emailValid.value = ValidationUtils.isValidEmail(email)
         emailErrorMessage.value =
             if (emailValid.value == true) "" else applicationContext.getString(R.string.email_error)
     }
 
     fun onPasswordChanged(password: String) {
         this.password.value = password
-        passwordValid.value = isValidPassword(password)
+        passwordValid.value = ValidationUtils.isValidPassword(password)
         passwordErrorMessage.value =
             if (passwordValid.value == true) "" else applicationContext.getString(R.string.password_error)
-    }
-
-    private fun isValidEmail(email: String): Boolean {
-        return email.contains("@") && email.endsWith(".com")
-    }
-
-    private fun isValidPassword(password: String): Boolean {
-        return password.any { it.isDigit() } && password.any { it.isUpperCase() }
     }
 }

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.detailsview.TransactionDetails
+import com.example.itautransferapp.presentation.screens.transfer.model.Transacao
 import com.example.itautransferapp.ui.theme.CORNER_RADIUS_16
 import com.example.itautransferapp.ui.theme.ELEVATION_16
 import com.example.itautransferapp.ui.theme.FONT_14
@@ -27,7 +28,7 @@ import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
 
 @Composable
 fun CardInformationTransfer(
-    transaction: TransactionDetails
+    transaction: Transacao
 ) {
     Column {
         Card(

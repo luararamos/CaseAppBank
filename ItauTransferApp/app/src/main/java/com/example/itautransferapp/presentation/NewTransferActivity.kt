@@ -23,13 +23,12 @@ class NewTransferActivity : ComponentActivity() {
                     Column {
                         SimpleToolbar(title = stringResource(id = R.string.transfer))
                         TransferDataScreen(navController)
+
                     }
                 }
-                composable("confirmTransferScreen") {
-                    Column {
-                        SimpleToolbar(title = stringResource(id = R.string.confirm_transfer))
-                        ConfirmTransferScreen()
-                    }
+                composable("confirmTransferScreen/{data}") { backStackEntry ->
+                    ConfirmTransferScreen(navController)
+
                 }
             }
         }

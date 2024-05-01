@@ -16,15 +16,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.BankStatementActivity
 import com.example.itautransferapp.presentation.NewTransferActivity
+import com.example.itautransferapp.presentation.components.BankAccountToolbar
 import com.example.itautransferapp.presentation.components.CardBank
 import com.example.itautransferapp.presentation.components.CardNewTransfer
-import com.example.itautransferapp.presentation.components.BankAccountToolbar
-import com.example.itautransferapp.presentation.screens.login.LoginViewModel
 import com.example.itautransferapp.ui.theme.CORNER_RADIUS_16
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
 import com.example.itautransferapp.ui.theme.MEDIUM_SPACER
@@ -66,12 +64,12 @@ fun HomeScreen(
         ) {
             Column {
                 Spacer(modifier = Modifier.height(MEDIUM_SPACER))
-                CardBank(name = state.name, accountBalance = state.value){
+                CardBank(name = state.name, accountBalance = state.value) {
                     val intent = Intent(context, BankStatementActivity::class.java)
                     context.startActivity(intent)
                 }
                 Spacer(modifier = Modifier.height(SUPER_SPACER))
-                CardNewTransfer(){
+                CardNewTransfer() {
                     val intent = Intent(context, NewTransferActivity::class.java)
                     context.startActivity(intent)
                 }

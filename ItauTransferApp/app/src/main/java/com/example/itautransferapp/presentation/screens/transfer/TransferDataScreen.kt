@@ -1,6 +1,5 @@
 package com.example.itautransferapp.presentation.screens.transfer
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,10 +12,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -24,10 +23,12 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
 import com.example.itautransferapp.R
 import com.example.itautransferapp.presentation.components.ButtonAction
 import com.example.itautransferapp.presentation.components.CardContact
+import com.example.itautransferapp.presentation.components.MoneyTextField
 import com.example.itautransferapp.presentation.components.OutlinedTextFieldAlertDialog
 import com.example.itautransferapp.presentation.components.OutlinedTextFieldManager
 import com.example.itautransferapp.presentation.components.SimpleCheckBox
@@ -36,35 +37,52 @@ import com.example.itautransferapp.ui.theme.CORNER_RADIUS_16
 import com.example.itautransferapp.ui.theme.ELEVATION_16
 import com.example.itautransferapp.ui.theme.EXTRA_SMALL_PADDING
 import com.example.itautransferapp.ui.theme.MEDIUM_PADDING
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun TransferDataScreen(navController: NavController) {
+
+
+    val viewModel: TransferViewModel = getViewModel()
+
+    //IsError
+    val isErrorAccount = remember { mutableStateOf(false) }
+    val isErrorName = remember { mutableStateOf(false) }
+    val isErrorCpf = remember { mutableStateOf(false) }
+    val isErrorValor = remember { mutableStateOf(false) }
+    val isErrorMsg = remember { mutableStateOf(false) }
+    val isErrorDialogBanco = remember { mutableStateOf(false) }
+    val isErrorDialogTypeTransaction = remember { mutableStateOf(false) }
+
+    var textSelectedDialog = ""
+    val showBankDialog = remember { mutableStateOf(false) }
+    val showTypeTranferDialog = remember { mutableStateOf(false) }
+    val textStateBank = remember { mutableStateOf("Selecione o Banco") }
+    val textTypeTreansfer = remember { mutableStateOf("Selecione") }
+    val textValueTreansfer = remember { mutableStateOf("") }
+    val textValueName = remember { mutableStateOf("") }
+    val textValueCPF = remember { mutableStateOf("") }
+    val textValueMSG = remember { mutableStateOf("") }
+    val textValueError = remember { mutableStateOf("") }
+    val textIndexInt = remember { mutableStateOf(2) }
+
     val checked = remember { mutableStateOf(true) }
     val mockListContacts: Array<String> =
         arrayOf("Maria", "Fernando", "Nicia", "Luara", "Lise", "Monica")
     val textTitleDialog: String = "Selecione um banco"
     val listBank: Array<String> = arrayOf(
-        "123 - Bando do Brasil",
+        "123 - Banco do Brasil",
         "222 - Nubank",
         "342 - Itaú Unibanco",
         "221 - Banco Pan",
         "225 - Banco Original"
     )
     val listTypeTransfer: Array<String> = arrayOf(
-        "TED",
-        "DOC",
-        "PIX",
+        stringResource(id = R.string.ted),
+        stringResource(id = R.string.doc),
+        stringResource(id = R.string.pix),
     )
-    var textSelectedDialog = ""
-    val showBankDialog = remember { mutableStateOf(false) }
-    val showTypeTranferDialog = remember { mutableStateOf(false) }
-    val textStateBank = remember { mutableStateOf("") }
-    val textTypeTreansfer = remember { mutableStateOf("") }
-    val textIndexInt = remember { mutableStateOf(2) }
+
 
     LazyColumn(
         modifier = Modifier
@@ -119,6 +137,7 @@ fun TransferDataScreen(navController: NavController) {
                         label = stringResource(id = R.string.select_bank),
                         iconId = R.drawable.ic_arrow_right_gray,
                         text = textStateBank.value,
+                        isError = isErrorDialogBanco.value,
                         clickAlertDialog = {
                             showBankDialog.value = true
                         }
@@ -126,63 +145,107 @@ fun TransferDataScreen(navController: NavController) {
 
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.writing_cont),
-                        isError = false,
-                        onTextChange = {
-
-                        }
+                        isError = isErrorAccount.value,
+                        onTextChange = { it ->
+                            if (it.all { it.isDigit() } && (it.length == 8)) {
+                                isErrorAccount.value = false
+                                textSelectedDialog = it
+                            } else {
+                                isErrorAccount.value = true
+                            }
+                        },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     )
 
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.name_receptor),
-                        isError = false,
-                        onTextChange = {
 
-                        }
-                    )
+                        isError = isErrorName.value,
+                        onTextChange = { it ->
+                            textValueName.value = it
+                            isErrorName.value = it.length < 4 || it.isEmpty()
+                        },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+
+                        )
 
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.cpf_receptor),
-                        isError = false,
-                        onTextChange = {
-
-                        }
+                        isError = isErrorCpf.value,
+                        onTextChange = { it ->
+                            textValueCPF.value = it
+                            isErrorCpf.value = it.length < 11
+                        },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     )
-
-                    OutlinedTextFieldManager(
+                    MoneyTextField(
                         label = stringResource(id = R.string.value_transfer),
-                        isError = false,
+                        value = textValueTreansfer.value,
+                        valueError = textValueError,
+                        isError = isErrorValor.value,
                         onTextChange = {
+                            if (it.isEmpty()) {
+                                isErrorValor.value = true
+                                textValueError.value = "valor não pode ser R$0.00"
+                            } else {
+                                textValueError.value = ""
+                            }
 
-                        }
-                    )
+                            textValueTreansfer.value = it
+                        },
+
+                        )
 
                     OutlinedTextFieldAlertDialog(
                         label = stringResource(id = R.string.type_transfer),
                         iconId = R.drawable.ic_arrow_right_gray,
                         text = textTypeTreansfer.value,
+                        isError = isErrorDialogTypeTransaction.value,
                         clickAlertDialog = {
+
                             showTypeTranferDialog.value = true
                         }
                     )
-
                     OutlinedTextFieldManager(
                         label = stringResource(id = R.string.messenger),
-                        isError = false,
+                        isError = isErrorMsg.value,
                         onTextChange = {
-
-                        }
+                            textValueMSG.value = it
+                            isErrorMsg.value = it.isEmpty()
+                        },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                     )
 
                     SimpleCheckBox(
                         onCheckedChange = { checked.value = it },
+
                         label = stringResource(id = R.string.save_contact)
                     )
+                    //validateFields()
 
                     ButtonAction(text = stringResource(id = R.string.next)) {
-                        navController.navigate("confirmTransferScreen")
+                        viewModel.handleButtonClick(
+                            textValueError,
+                            isErrorValor,
+                            textSelectedDialog,
+                            isErrorAccount,
+                            isErrorName,
+                            isErrorCpf,
+                            isErrorMsg,
+                            isErrorDialogBanco,
+                            isErrorDialogTypeTransaction,
+                            textValueTreansfer,
+                            textStateBank,
+                            textTypeTreansfer,
+                            textValueName,
+                            textValueCPF,
+                            navController
+                        )
                     }
 
+
                 }
+
             }
         }
 
@@ -191,6 +254,7 @@ fun TransferDataScreen(navController: NavController) {
                 modifier = Modifier.padding(EXTRA_SMALL_PADDING)
             )
         }
+
     }
     SimpleDialog(
         showDialogState = showBankDialog,
@@ -201,6 +265,10 @@ fun TransferDataScreen(navController: NavController) {
         textIndexInt.value = indice
         textStateBank.value = textSelected
         showBankDialog.value = false
+
+        if (textSelected != "Selecione o Banco") {
+            isErrorDialogBanco.value = false
+        }
     }
 
     SimpleDialog(
@@ -211,5 +279,11 @@ fun TransferDataScreen(navController: NavController) {
     ) { textSelected, indice ->
         textTypeTreansfer.value = textSelected
         showTypeTranferDialog.value = false
+
+        if (textSelected != "Selecione") {
+            isErrorDialogTypeTransaction.value = false
+        }
     }
+
+
 }
