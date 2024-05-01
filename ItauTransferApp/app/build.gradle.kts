@@ -114,4 +114,8 @@ dependencies {
     kapt ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.google.accompanist:accompanist-glide:0.13.0")
 
+    implementation ("androidx.compose.runtime:runtime-livedata:1.3.1")
+    implementation ("androidx.compose.runtime:runtime-rxjava2:1.3.1")
+
+
 }
