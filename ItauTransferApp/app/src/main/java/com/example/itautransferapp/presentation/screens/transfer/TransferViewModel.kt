@@ -88,7 +88,6 @@ class TransferViewModel (
     }
 
 
-    // Valida o valor da transferência com base no tipo de transferência
     private fun validateTransferValue(transferType: String, transferValue: String): String {
         val valueInCents = transferValue.toIntOrNull() ?: return "Valor inválido"
         val value = valueInCents / 100.0
@@ -100,7 +99,6 @@ class TransferViewModel (
         }
     }
 
-    // Valida os campos e retorna uma lista de campos inválidos
     private fun validateFields(
         isErrorAccount: MutableState<Boolean>,
         isErrorName: MutableState<Boolean>,

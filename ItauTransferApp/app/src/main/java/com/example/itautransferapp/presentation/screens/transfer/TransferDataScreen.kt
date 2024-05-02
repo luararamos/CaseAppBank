@@ -265,8 +265,6 @@ fun TransferDataScreen(navController: NavController) {
     ) { textSelected, indice ->
         textStateBank.value = textSelected
         showBankDialog.value = false
-
-
         if (textSelected != "Selecione o Banco") {
             isErrorDialogBanco.value = false
         }

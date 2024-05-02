@@ -69,21 +69,17 @@ dependencies {
     androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.3.1")
     implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
-    // ViewModel
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0")
 
-    // Navigation Compose
     implementation("androidx.navigation:navigation-compose:2.8.0-alpha01")
     implementation ("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation ("com.google.accompanist:accompanist-pager:0.12.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
 
-    // hilt
-    // Navigation compose
+
     implementation ("androidx.navigation:navigation-compose:2.5.3")
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
 
-    // Hilt
     implementation ("com.google.dagger:hilt-android:2.44")
     kapt ("com.google.dagger:hilt-compiler:2.44")
 
@@ -93,33 +89,30 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.8.1")
 
     implementation ("androidx.compose.runtime:runtime-livedata:1.0.0-beta01")
-    // Koin
+
     implementation("io.insert-koin:koin-android:3.4.0")
     implementation("io.insert-koin:koin-core:3.4.0")
     implementation("io.insert-koin:koin-android-compat:3.4.0")
     implementation ("io.insert-koin:koin-androidx-compose:3.4.0")
 
-    // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.google.code.gson:gson:2.8.6")
 
-    // Ok Http
     implementation ("com.squareup.okhttp3:okhttp:4.2.1")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.2.1")
     implementation ("com.squareup.okhttp3:okhttp-urlconnection:4.2.1")
 
-    // coil
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     kapt ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.google.accompanist:accompanist-glide:0.13.0")
-
-    // testes
+    
     testImplementation ("org.mockito:mockito-core:3.+")
     testImplementation ("org.mockito:mockito-inline:3.+")
     testImplementation ("com.squareup.retrofit2:retrofit:2.9.0")
     testImplementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     testImplementation ("com.google.code.gson:gson:2.8.6")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:4.0.0")
 
 
 

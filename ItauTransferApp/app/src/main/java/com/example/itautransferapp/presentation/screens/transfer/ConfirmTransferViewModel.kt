@@ -31,42 +31,32 @@ class ConfirmTransferViewModel(
 
 
     private var _valueAccount = mutableStateOf("0.00")
-
-    // Estado para armazenar a mensagem de status da busca de conta
     private var _stateGET = mutableStateOf("")
 
-    // Estado para armazenar se a busca de conta está em andamento
     private var _isLoading = mutableStateOf(false)
     private var _isAccountFound = mutableStateOf(false)
 
-    // Exposição dos estados para a UI
     val isLoading: State<Boolean> = _isLoading
     val stateGET: State<String> = _stateGET
 
-    // LiveData para armazenar se a conta foi encontrada
     val isAccountFound = MutableLiveData(false)
 
-    // Função para obter os dados da transação a partir de uma string JSON
     fun getTransaction(dataString: String?): Transacao {
-        // Obtenção da data e hora atual
         val currentDateTime = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             LocalDateTime.now()
         } else {
             TODO("VERSION.SDK_INT < O")
         }
 
-        // Formatação da data e hora
         val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         val date = currentDateTime.format(dateFormatter)
         val time = currentDateTime.format(timeFormatter)
 
-        // Deserialização da string JSON para um mapa
         val gson = Gson()
         val type = object : TypeToken<Map<String, String>>() {}.type
         val dataMap: Map<String, String> = gson.fromJson(dataString ?: "", type)
 
-        // Formatação do valor
         val valor = dataMap["valor"] ?: "0"
         val cpf = dataMap["cpf"] ?: ""
         val valorCliente = calcularSaldo(_valueAccount.value, valor)
@@ -81,7 +71,6 @@ class ConfirmTransferViewModel(
         }"
 
 
-        // Criação e retorno da instância de Transacao
         val transacao = Transacao(
             nome = stateName.value,
             cpf = formattedCpf,
@@ -99,21 +88,16 @@ class ConfirmTransferViewModel(
 
     }
 
-    // Função para verificar se uma conta existe
     fun checkAccount(account: String) {
-        // Atualização dos estados
         _stateGET.value = "Carregando..."
         _isLoading.value = true
 
-        // Início da busca de conta
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                // Busca de conta para cada id de 1 a 50
                 val users = transferRepository.getUsers()
                 for (id in 1..users.size) {
                     val accountResponses = transferRepository.getAccountResponses(id)
 
-                    // Verificação se a conta existe na lista de respostas
                     for (accountResponse in accountResponses) {
                         Log.d("TAG", "account: ${accountResponse.userId}")
                         if (accountResponse.account == account) {
@@ -124,10 +108,8 @@ class ConfirmTransferViewModel(
                                 _stateGET.value = "Outra conta por favor!"
 
                             }
-                            // Se a conta foi encontrada, atualização do LiveData e término da busca
                             isAccountFound.postValue(true)
 
-                            //pegando o valor da conta do cliente
                             _valueAccount.value = accountResponse.amount
                             _isLoading.value = false
 
@@ -138,16 +120,13 @@ class ConfirmTransferViewModel(
 
                     }
 
-                    // Pausa entre as buscas
                     delay(1000)
 
-                    //assim que encontra a conta ele para
                     if (isAccountFound.value == true) break
                 }
 
 
             } catch (e: Exception) {
-                // Em caso de erro, atualização dos estados e log do erro
                 _stateGET.value = "Erro ao buscar a conta!"
                 _isLoading.value = false
             } finally {

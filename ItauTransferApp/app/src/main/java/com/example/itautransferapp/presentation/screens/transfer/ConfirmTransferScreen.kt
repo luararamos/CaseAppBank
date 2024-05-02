@@ -33,7 +33,6 @@ fun ConfirmTransferScreen(navController:NavController){
     val dataString: String = remember {
         navController.currentBackStackEntry?.arguments?.getString("data") ?: ""
     }
-    Log.d("TAG","$dataString")
     val transacao = viewModel.getTransaction(dataString)
     val isLoading=viewModel.isLoading.value
     val isSuccess=viewModel.isAccountFound.value
@@ -86,9 +85,6 @@ fun ConfirmTransferScreen(navController:NavController){
             }
             showDialog.value = true
 
-//            val intent = Intent(context, ProofBankTransactionActivity::class.java)
-//            context.startActivity(intent)
-//            (context as? Activity)?.finish()
         }
 
     }
