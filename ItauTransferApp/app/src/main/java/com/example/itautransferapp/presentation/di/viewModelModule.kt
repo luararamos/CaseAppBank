@@ -13,6 +13,6 @@ val viewModelModule = module {
     viewModel { LoginViewModel(androidContext(), get()) }
     viewModel { HomeViewModel(androidContext(), get()) }
     viewModel { ListBankStatementViewModel(androidContext(), get()) }
-    viewModel { TransferViewModel(androidContext()) }
-    viewModel { ConfirmTransferViewModel(androidContext(),get()) }
+    viewModel { TransferViewModel(get()) }
+    viewModel { ConfirmTransferViewModel(get(), get()) }
 }

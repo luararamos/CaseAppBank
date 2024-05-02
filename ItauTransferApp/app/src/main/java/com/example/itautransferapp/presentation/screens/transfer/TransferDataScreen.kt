@@ -46,7 +46,6 @@ fun TransferDataScreen(navController: NavController) {
 
     val viewModel: TransferViewModel = getViewModel()
 
-    //IsError
     val isErrorAccount = remember { mutableStateOf(false) }
     val isErrorName = remember { mutableStateOf(false) }
     val isErrorCpf = remember { mutableStateOf(false) }
@@ -69,7 +68,7 @@ fun TransferDataScreen(navController: NavController) {
 
     val checked = remember { mutableStateOf(true) }
     val mockListContacts: Array<String> =
-        arrayOf("Maria", "Fernando", "Nicia", "Luara", "Lise", "Monica")
+        arrayOf("Maria", "Pedro")
     val textTitleDialog = "Selecione um banco"
     val listBank: Array<String> = arrayOf(
         stringResource(id = R.string.bd),

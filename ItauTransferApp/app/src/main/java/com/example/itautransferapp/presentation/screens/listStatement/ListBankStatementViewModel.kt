@@ -11,7 +11,7 @@ import com.example.itautransferapp.domain.APIListener
 import com.example.itautransferapp.domain.repository.UserRepository
 import com.example.itautransferapp.presentation.detailsview.BankStatementDetails
 
-class ListBankStatementViewModel (
+class ListBankStatementViewModel(
     private val applicationContext: Context,
     private val userRepository: UserRepository
 ) : ViewModel() {
@@ -31,7 +31,7 @@ class ListBankStatementViewModel (
                             value = mappedStatements
                         )
 
-                    }  else {
+                    } else {
                         _stateList.value = stateList.value.copy(isLoading = false)
                     }
                 }
@@ -47,6 +47,7 @@ class ListBankStatementViewModel (
                 }
 
             })
+
         }
     }
 }

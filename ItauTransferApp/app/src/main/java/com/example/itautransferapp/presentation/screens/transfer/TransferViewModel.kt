@@ -8,23 +8,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.itautransferapp.data.local.PreferencesManager
-import com.example.itautransferapp.data.remote.Api
-import com.example.itautransferapp.data.remote.RetrofitClient
+import com.example.itautransferapp.domain.repository.TransferRepository
 import com.google.gson.Gson
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Locale
 
 class TransferViewModel (
-    applicationContext: Context,
+    private val transferRepository: TransferRepository
 ) : ViewModel() {
     private var _saldo = mutableStateOf("")
-    val user = PreferencesManager.getLastLoggedUser(applicationContext)
-    val api = RetrofitClient.getService(Api::class.java)
-
-
-    // Esta função lida com o evento de clique do botão e realiza a validação em vários campos
     fun handleButtonClick(
         textValueError: MutableState<String>,
         isErrorValor: MutableState<Boolean>,
@@ -43,7 +35,7 @@ class TransferViewModel (
         textIndexInt: MutableState<Int>,
         navController: NavController
     ) {
-        // Valida os campos e retorna uma lista de campos inválidos
+
         val invalidFields = validateFields(
             isErrorAccount,
             isErrorName,
@@ -62,7 +54,6 @@ class TransferViewModel (
         )
 
         val validationResult = validateTransferValue(textTypeTreansfer.value, textValueTreansfer.value)
-        // Se a validação falhar, atualiza o estado do erro e a mensagem de erro
         if (validationResult.isNotEmpty()) {
             textValueError.value = validationResult
             isErrorValor.value = true
@@ -73,9 +64,8 @@ class TransferViewModel (
             Log.d("TAG", invalidFields.toString())
         } else {
             viewModelScope.launch {
-                if(user != null){
-                    if (checkAmount(user.id.toInt(), textValueTreansfer.value)) {
-                        // O usuário tem saldo suficiente, navegue para a próxima tela
+                _saldo.value=  transferRepository.getAmount()
+                    if (checkAmount(textValueTreansfer.value)) {
                         val gson = Gson()
                         val dataMap = mapOf(
                             "nome" to textValueName.value,
@@ -88,11 +78,9 @@ class TransferViewModel (
                         val data = gson.toJson(dataMap)
                         navController.navigate("confirmTransferScreen/$data")
                     } else {
-                        // O usuário não tem saldo suficiente, mostre uma mensagem de erro
                         textValueError.value = "Saldo insuficiente, seu saldo R\$${_saldo.value}"
                         isErrorValor.value = true
                     }
-                }
 
             }
 
@@ -185,21 +173,8 @@ class TransferViewModel (
         }
     }
 
-    private suspend fun checkAmount(id: Int, transferValue: String): Boolean {
-        val valueInCents = transferValue.toIntOrNull() ?: return false
-        val value = valueInCents / 100.0
-        return try {
-            val accountResponses = api.getAccount(id)
-
-            // Verifica se o saldo da conta é maior ou igual ao valor da transferência
-            accountResponses.any {
-                _saldo.value=  it.amount
-                it.amount.toDouble() >= value
-            }
-
-        } catch (e: Exception) {
-            false
-        }
+    private suspend fun checkAmount(transferValue: String): Boolean {
+        return transferRepository.checkAmount( transferValue)
     }
 
     private fun calcularSaldo(saldo: String, valorTransferido: String): String {
