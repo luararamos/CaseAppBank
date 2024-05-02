@@ -11,5 +11,6 @@ class Transacao (
     val hora: String,
     val valor: String,
     val msg: String,
-    val valor_cliente: String
+    val valor_cliente: String,
+    val valor_atualizado: String
 ): Serializable

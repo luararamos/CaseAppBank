@@ -48,6 +48,8 @@ class ProofBankTransactionActivity : ComponentActivity() {
                     color = colorResource(id = R.color.colorSuccess)
                 )
                 CardInformationTransfer(transaction = transaction)
+                CardBalanceAmount(typeAgent = "Emissor", value = transaction.valor_atualizado)
+                CardBalanceAmount(typeAgent = "Receptor", value = transaction.valor_cliente)
 
                 ButtonAction(text = stringResource(id = R.string.finish)) {
                     finish()

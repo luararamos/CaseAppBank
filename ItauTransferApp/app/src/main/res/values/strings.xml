@@ -48,5 +48,11 @@
     <string name="number_ag_itau">342</string>
     <string name="balance_amount">Saldo do %1$s: R$ %2$s</string>
 
+    <string name="bd">123 - Banco do Brasil</string>
+    <string name="nubank">222 - Nubank</string>
+    <string name="itau">342 - Itaú Unibanco</string>
+    <string name="bp">221 - Banco Pan</string>
+    <string name="bo">225 - Banco Original</string>
+
 
 </resources>

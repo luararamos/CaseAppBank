@@ -2,6 +2,7 @@ package com.example.itautransferapp.presentation.screens.transfer
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -32,6 +33,7 @@ fun ConfirmTransferScreen(navController:NavController){
     val dataString: String = remember {
         navController.currentBackStackEntry?.arguments?.getString("data") ?: ""
     }
+    Log.d("TAG","$dataString")
     val transacao = viewModel.getTransaction(dataString)
     val isLoading=viewModel.isLoading.value
     val isSuccess=viewModel.isAccountFound.value

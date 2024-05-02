@@ -1,6 +1,6 @@
 package com.example.itautransferapp.common
 
-object ValidationUtils {
+object ValidationEmailAndPassword {
     fun isValidEmail(email: String): Boolean {
         return email.contains("@") && email.endsWith(".com")
     }

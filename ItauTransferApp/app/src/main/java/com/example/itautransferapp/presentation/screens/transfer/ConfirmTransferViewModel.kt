@@ -1,5 +1,6 @@
 package com.example.itautransferapp.presentation.screens.transfer
 
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import android.view.SurfaceControl.Transaction
@@ -8,8 +9,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.itautransferapp.R
+import com.example.itautransferapp.data.local.PreferencesManager
 import com.example.itautransferapp.data.remote.Api
 import com.example.itautransferapp.data.remote.RetrofitClient
+import com.example.itautransferapp.data.remote.model.User
+import com.example.itautransferapp.data.remote.model.UserAccount
+import com.example.itautransferapp.domain.APIListener
+import com.example.itautransferapp.domain.repository.UserRepository
+import com.example.itautransferapp.presentation.detailsview.UserDetails
 import com.example.itautransferapp.presentation.screens.transfer.model.Transacao
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -18,19 +26,28 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
-class ConfirmTransferViewModel : ViewModel() {
+class ConfirmTransferViewModel(
+    private val applicationContext: Context,
+    private val userRepository: UserRepository
+) : ViewModel() {
+
+    private var _stateName = mutableStateOf("")
+    val stateName: State<String> = _stateName
+
+    val user = PreferencesManager.getLastLoggedUser(applicationContext)
+
+    private var _valueAccount = mutableStateOf("0.00")
 
     // Estado para armazenar a mensagem de status da busca de conta
     private var _stateGET = mutableStateOf("")
-    private var _valueAccount = mutableStateOf("")
     // Estado para armazenar se a busca de conta está em andamento
     private var _isLoading = mutableStateOf(false)
     private var _isAccountFound = mutableStateOf(false)
     // Exposição dos estados para a UI
     val isLoading: State<Boolean> = _isLoading
     val stateGET: State<String> = _stateGET
-    val valueAccount: State<String> = _valueAccount
     // Instância do serviço API
     val api = RetrofitClient.getService(Api::class.java)
     // LiveData para armazenar se a conta foi encontrada
@@ -59,9 +76,7 @@ class ConfirmTransferViewModel : ViewModel() {
         // Formatação do valor
         val valor = dataMap["valor"] ?: "0"
         val cpf = dataMap["cpf"] ?: ""
-        val valordaConta = _valueAccount.value.toDoubleOrNull() ?: 0.0
-        val valortranferido = valor.toDoubleOrNull() ?: 0.0
-        val valor_cliente = valordaConta + valortranferido
+        val valorCliente = calcularSaldo(_valueAccount.value,valor)
         val nome = (dataMap["nome"] ?: "").replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
         val valorFormatado = String.format("R$%.2f", valor.toInt() / 100.0)
         val formattedCpf = "${cpf.substring(0, 3)}.${cpf.substring(3, 6)}.${cpf.substring(6, 9)}-${cpf.substring(9, 11)}"
@@ -69,7 +84,7 @@ class ConfirmTransferViewModel : ViewModel() {
 
         // Criação e retorno da instância de Transacao
         val transacao = Transacao(
-            nome = nome,
+            nome = stateName.value,
             cpf = formattedCpf,
             agencia = dataMap["agencia"] ?: "",
             conta = dataMap["conta"] ?: "",
@@ -77,7 +92,8 @@ class ConfirmTransferViewModel : ViewModel() {
             hora = time,
             valor = valorFormatado,
             msg = dataMap["msg"] ?: "",
-            valor_cliente=valor_cliente.toString()
+            valor_cliente=valorCliente,
+            valor_atualizado= dataMap["valorAtualizado"]?: ""
         )
 
         return transacao
@@ -94,26 +110,37 @@ class ConfirmTransferViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Busca de conta para cada id de 1 a 50
-                for (id in 1..50) {
+                val users = api.getUsers()
+                for (id in 1..users.size) {
                     val accountResponses = api.getAccount(id)
-                    Log.d("TAG", accountResponses.toString())
 
                     // Verificação se a conta existe na lista de respostas
                     for (accountResponse in accountResponses) {
-                        accountResponse.amount
-                        Log.d("TAG",  accountResponse.account+","+accountResponse.amount)
+                        Log.d("TAG", "account: ${accountResponse.userId}")
+
+
                         if (accountResponse.account == account) {
-                            Log.d("TAG",  "encontrou!")
+                            if(user!=null ){
+                                if( user.id== accountResponse.userId){
+                                    Log.d("TAG", "igaus")
+                                    _isLoading.value=false
+                                    isAccountFound.postValue(false)
+                                    _stateGET.value="Outra conta por favor!"
+
+                                }
+                            }
                             // Se a conta foi encontrada, atualização do LiveData e término da busca
                             isAccountFound.postValue(true)
 
                             //pegando o valor da conta do cliente
                             _valueAccount.value=accountResponse.amount
-
-
                             _isLoading.value=false
+
+                            findNameById(accountResponse.id)
                             break
                         }
+
+
                     }
 
                     // Pausa entre as buscas
@@ -128,11 +155,40 @@ class ConfirmTransferViewModel : ViewModel() {
                 // Em caso de erro, atualização dos estados e log do erro
                 _stateGET.value="Erro ao buscar a conta!"
                 _isLoading.value=false
-                Log.d("TAG", "Erro ao buscar a conta: ${e.message}")
             }finally {
                 _stateGET.value=if (isAccountFound.value == false)"Falha na transfêrencia,verifique os dados." else "transfêrencia realizada com sucesso!"
                 _isLoading.value=false
             }
         }
+    }
+
+    private fun calcularSaldo(saldo: String, valorTransferido: String): String {
+        val valorFormatado = String.format(Locale.US, "%.2f", valorTransferido.toInt() / 100.0)
+        val novoSaldo = saldo.toDouble() + valorFormatado.toDouble()
+        Log.d("oskdoksd",novoSaldo.toString())
+        return "R$%.2f".format(novoSaldo)
+    }
+
+    fun findNameById(accountId: String){
+        userRepository.getUser(object : APIListener<User> {
+            override fun onSuccess(response: User) {
+                val user = response.find {
+                    it.id.trim() == accountId
+                }
+                if (user != null) {
+                    _stateName.value = user.name
+                } else {
+                    _stateName.value = "Nome não encontrado"
+                }
+                _isLoading.value = false
+            }
+
+            override fun onError(response: String) {
+            }
+
+            override fun onLoading(stateLoading: Boolean) {
+            }
+
+        })
     }
 }

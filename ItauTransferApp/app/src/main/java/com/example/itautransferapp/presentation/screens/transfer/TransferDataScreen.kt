@@ -1,5 +1,6 @@
 package com.example.itautransferapp.presentation.screens.transfer
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -64,18 +65,18 @@ fun TransferDataScreen(navController: NavController) {
     val textValueCPF = remember { mutableStateOf("") }
     val textValueMSG = remember { mutableStateOf("") }
     val textValueError = remember { mutableStateOf("") }
-    val textIndexInt = remember { mutableStateOf(2) }
+    var textIndexInt = remember { mutableStateOf(2) }
 
     val checked = remember { mutableStateOf(true) }
     val mockListContacts: Array<String> =
         arrayOf("Maria", "Fernando", "Nicia", "Luara", "Lise", "Monica")
-    val textTitleDialog: String = "Selecione um banco"
+    val textTitleDialog = "Selecione um banco"
     val listBank: Array<String> = arrayOf(
-        "123 - Banco do Brasil",
-        "222 - Nubank",
-        "342 - Itaú Unibanco",
-        "221 - Banco Pan",
-        "225 - Banco Original"
+        stringResource(id = R.string.bd),
+        stringResource(id = R.string.nubank),
+        stringResource(id = R.string.itau),
+        stringResource(id = R.string.bp),
+        stringResource(id = R.string.bo),
     )
     val listTypeTransfer: Array<String> = arrayOf(
         stringResource(id = R.string.ted),
@@ -239,6 +240,7 @@ fun TransferDataScreen(navController: NavController) {
                             textTypeTreansfer,
                             textValueName,
                             textValueCPF,
+                            textIndexInt,
                             navController
                         )
                     }
@@ -262,13 +264,16 @@ fun TransferDataScreen(navController: NavController) {
         list = listBank,
         indiceSelected = textIndexInt
     ) { textSelected, indice ->
-        textIndexInt.value = indice
         textStateBank.value = textSelected
         showBankDialog.value = false
+
 
         if (textSelected != "Selecione o Banco") {
             isErrorDialogBanco.value = false
         }
+        textIndexInt.value = viewModel.getTextIndex(textSelected)
+
+
     }
 
     SimpleDialog(
