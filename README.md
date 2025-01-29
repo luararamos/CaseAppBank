@@ -63,3 +63,5 @@ Escolha, dentre as opções de linguagens de programação abaixo, qual se senti
 
 Será observado o uso de boas práticas de programação, bem como orientaçao à objetos e se possível, aplicação de padrões de projeto.
 Boa sorte!
+![gif_itau (1)](https://github.com/user-attachments/assets/91abcc2d-3ea0-41bc-a388-820561838521)
+
