@@ -58,7 +58,6 @@ Ao final da operação, uma mensagem deverá ser exibida:
     Ex: Sua transferência não foi completada pois (escrever o motivo)
 
 Escolha, dentre as opções de linguagens de programação abaixo, qual se sentir mais confortável em desenvolver o algoritmo e pense nos casos de teste descritos acima!
-  - Java
   - Kotlin
 
 Será observado o uso de boas práticas de programação, bem como orientaçao à objetos e se possível, aplicação de padrões de projeto.
